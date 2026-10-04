@@ -1,6 +1,6 @@
 const express = require('express'), multer = require('multer'), fs = require('fs'), path = require('path'), crypto = require('crypto');
 const app = express();
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'manjit@123'; // set ADMIN_PASSWORD in Vercel settings
+const ADMIN_PASSWORD = String(process.env.ADMIN_PASSWORD || 'manjit@123').trim(); // set ADMIN_PASSWORD in Vercel settings
 const DB = path.join(__dirname, 'data.json'), UP = path.join(__dirname, 'public', 'uploads');
 const REDIS_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const REDIS_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -56,8 +56,9 @@ const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 4 *
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/api/health', (q, res) => res.json({ passwordFromVercel: !!process.env.ADMIN_PASSWORD, redis: !!REDIS_URL, blob: !!BLOB }));
 app.post('/api/login', (req, res) => {
-  if (req.body.password !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Wrong password' });
+  if (String(req.body.password || '').trim() !== ADMIN_PASSWORD) return res.status(401).json({ error: 'Wrong password' });
   res.json({ token: makeToken() });
 });
 app.get('/api/gallery', wrap(async (q, res) => res.json(await load('gallery'))));
