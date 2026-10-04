@@ -4,7 +4,7 @@ const ADMIN_PASSWORD = String(process.env.ADMIN_PASSWORD || 'manjit@123').trim()
 const DB = path.join(__dirname, 'data.json'), UP = path.join(__dirname, 'public', 'uploads');
 const REDIS_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const REDIS_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-const BLOB = process.env.BLOB_READ_WRITE_TOKEN;
+const BLOB = process.env.BLOB_READ_WRITE_TOKEN || process.env[Object.keys(process.env).find(k => /READ_WRITE_TOKEN$/.test(k)) || '']; // also accepts a prefixed name
 const U = id => `https://images.unsplash.com/${id}?w=900&q=80&auto=format&fit=crop`;
 const seed = {
   gallery: [
