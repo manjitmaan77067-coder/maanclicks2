@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin | Manjit Maan</title><link rel="stylesheet" href="style.css">
+<style>body{padding:20px}.box{max-width:1000px;margin:30px auto}.tabs{display:flex;gap:10px;margin:20px 0;flex-wrap:wrap}
+.tabs button{background:var(--card);border:1px solid var(--line);color:var(--text);padding:10px 22px;border-radius:30px;cursor:pointer;font-family:inherit}
+.tabs button.on{background:var(--gold);color:#111}.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-top:20px}
+.thumbs div{position:relative}.thumbs img{height:140px;width:100%;object-fit:cover;border-radius:10px}
+.thumbs small{position:absolute;left:6px;top:6px;background:#000a;padding:1px 8px;border-radius:10px;font-size:.7rem}
+.del{background:#c0392b;color:#fff;border:0;border-radius:8px;padding:6px 12px;cursor:pointer;font-family:inherit;margin-top:6px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:10px 0}.row input,.row select{width:auto;flex:1;min-width:160px}
+.hide{display:none}.card{margin-bottom:14px}.card a{color:var(--gold)}</style></head><body>
+<div class="box" id="login"><div class="card" style="max-width:380px;margin:80px auto;text-align:center"><h3>Admin Login</h3><br>
+<input type="password" id="pw" placeholder="Password"><br><br><button class="btn" onclick="login()">Login</button><div class="msg" id="lm"></div></div></div>
+<div class="box hide" id="panel"><div class="row"><h2 style="flex:1">Admin Panel</h2><a href="/" class="btn ghost">View Site</a><button class="btn" onclick="logout()">Logout</button></div>
+<div class="tabs"><button class="on" data-t="gal">Gallery</button><button data-t="rev">Reviews</button><button data-t="inq">Inquiries <span id="cnt"></span></button></div>
+<div id="gal"><div class="card"><div class="row"><input type="file" id="files" accept="image/*" multiple>
+<select id="cat"><option>Wedding</option><option>Pre-Wedding</option><option>Events</option><option>Portrait</option></select>
+<button class="btn" onclick="upload()">Upload</button></div><div class="msg" id="um"></div><div class="thumbs" id="thumbs"></div></div></div>
+<div id="rev" class="hide"></div><div id="inq" class="hide"></div></div>
+<script src="admin.js"></script></body></html>
